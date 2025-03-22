@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz aniversário Mãe</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Initial Screen -->
+    <div id="initialScreen" class="initial-screen">
+        <div id="spaceHearts" class="space-hearts"></div>
+        <button id="startButton" class="start-button">Clique Aqui</button>
+    </div>
+
+    <!-- Hearts Rain Effect -->
+    <div id="heartsRain" class="hearts-rain"></div>
+
+    <!-- Falling Hearts Effect -->
+    <div id="fallingHearts" class="falling-hearts"></div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+        <h1 class="title">Feliz aniversário Mãe</h1>
+
+        <!-- Carousel -->
+        <div class="carousel-container">
+            <div id="carousel" class="carousel">
+                <!-- Slides são definidos diretamente no HTML -->
+                <div class="carousel-slide active">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.01.jpeg" alt="Foto 1" class="carousel-image" data-quote="Mãe, seu amor é a luz que ilumina meu caminho todos os dias.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.01 (1).jpeg" alt="Foto 2" class="carousel-image" data-quote="Obrigado por sempre estar com a gente.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.02 (1).jpeg" alt="Foto 3" class="carousel-image" data-quote="Obrigado por ser uma das minhas inspirações.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.02 (2).jpeg" alt="Foto 4" class="carousel-image" data-quote="Obrigado por cada abraço, cada conselho e cada momento.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.02 (3).jpeg" alt="Foto 5" class="carousel-image" data-quote="Que a senhora continue sendo essa mulher incrível, forte e corajosa que a senhora é.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.28.02.jpeg" alt="Foto 6" class="carousel-image" data-quote="Obrigado por ser a melhor mãe do mundo.">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/WhatsApp Image 2025-03-22 at 02.55.08.jpeg" alt="Foto 7" class="carousel-image" data-quote="Feliz aniversário, mãe! Te amo até o infinito.">
+                </div>
+            </div>
+            <div id="carouselIndicators" class="carousel-indicators">
+                <!-- Indicadores serão gerados pelo JavaScript -->
+            </div>
+        </div>
+
+        <!-- Quote -->
+        <div class="quote-container">
+            <p id="quote" class="quote active">Mãe, seu amor é a luz que ilumina meu caminho todos os dias.</p>
+        </div>
+
+        <!-- Decorative Line -->
+        <div class="decorative-line"></div>
+
+        <!-- Final Message -->
+        <div class="final-message">
+            <p>Te amo pra sempre</p>
+            <i class="fas fa-heart heart-icon"></i>
+        </div>
+    </div>
+
+    <!-- Spotify Player -->
+    <div id="spotifyPlayer" class="spotify-player">
+        <div class="player-content">
+            <div class="song-info">
+                <div class="album-art">
+                    <img src="img/Somewhere over the Rainbow.jpg" alt="Album Art">
+                </div>
+                <div class="song-details">
+                    <div class="song-title">Somewhere Over The Rainbow</div>
+                    <div class="song-artist">Israel Kamakawiwo</div>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="time current-time" id="currentTime">0:00</div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time total-time" id="totalTime">-0:00</div>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn play-pause-btn" id="playPauseBtn">
+                    <i class="fas fa-play" id="playIcon" style="display: none;"></i>
+                    <i class="fas fa-pause" id="pauseIcon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="audio/Over the Rainbow.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

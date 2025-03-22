@@ -1,0 +1,559 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Initial Screen */
+.initial-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1.5s ease-out;
+}
+
+.start-button {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #ff3b5c;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+    font-weight: 500;
+    box-shadow: 0 0 15px rgba(255, 59, 92, 0.3);
+}
+
+.start-button:hover {
+    background-color: rgba(255, 59, 92, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 59, 92, 0.5);
+}
+
+/* Space Hearts (Initial Screen) - Improved */
+.space-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+.space-heart {
+    position: absolute;
+    color: #ff3b5c;
+    opacity: 0;
+    animation: float-in-space 15s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; /* Added cubic-bezier for smoother motion */
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 0 5px rgba(255, 59, 92, 0.5)); /* Added glow effect */
+}
+
+@keyframes float-in-space {
+    0% {
+        transform: translateZ(-300px) translateX(-100px) translateY(100px) rotate(0deg);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateZ(0) translateX(20px) translateY(0) rotate(180deg);
+    }
+    95% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateZ(300px) translateX(100px) translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Hearts Rain Animation - Improved */
+.hearts-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    display: none;
+}
+
+.rain-heart {
+    position: absolute;
+    color: #ff3b5c;
+    opacity: 0;
+    animation: rain-down 4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards; /* Improved easing */
+    filter: drop-shadow(0 0 3px rgba(255, 59, 92, 0.7)); /* Added glow effect */
+}
+
+@keyframes rain-down {
+    0% {
+        transform: translateY(-50px) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+        transform: translateY(10vh) rotate(15deg) scale(1);
+    }
+    50% {
+        transform: translateY(50vh) rotate(-15deg) translateX(20px) scale(0.9);
+    }
+    90% {
+        opacity: 0.9;
+        transform: translateY(90vh) rotate(5deg) translateX(-10px) scale(1);
+    }
+    100% {
+        transform: translateY(120vh) rotate(20deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Falling Hearts Animation - Improved */
+.falling-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    display: none;
+}
+
+.falling-heart {
+    position: absolute;
+    color: #ff3b5c;
+    opacity: 0;
+    animation: fall-like-leaf 10s cubic-bezier(0.645, 0.045, 0.355, 1) infinite; /* Improved easing */
+    filter: drop-shadow(0 0 4px rgba(255, 59, 92, 0.6)); /* Added glow effect */
+}
+
+@keyframes fall-like-leaf {
+    0% {
+        transform: translateY(-5vh) translateX(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+        transform: translateY(10vh) translateX(10px) rotate(45deg) scale(1);
+    }
+    30% {
+        transform: translateY(30vh) translateX(-15px) rotate(90deg) scale(0.9);
+    }
+    50% {
+        transform: translateY(50vh) translateX(20px) rotate(180deg) scale(1.1);
+        opacity: 0.8;
+    }
+    70% {
+        transform: translateY(70vh) translateX(-10px) rotate(270deg) scale(0.9);
+    }
+    90% {
+        opacity: 0.7;
+        transform: translateY(90vh) translateX(5px) rotate(320deg) scale(1);
+    }
+    100% {
+        transform: translateY(105vh) translateX(-10px) rotate(360deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Main Content */
+.main-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s ease-in;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Title */
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin: 40px 0;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 2px;
+    animation: fadeIn 2s ease-out;
+    padding: 0 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Carousel - Updated for adaptive images */
+.carousel-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    position: relative;
+    animation: fadeIn 2s ease-out 0.5s both;
+}
+
+.carousel {
+    width: 100%;
+    height: 400px; /* Default height, will be adjusted by JS */
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: height 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Changed from cover to contain to prevent stretching */
+    border-radius: 10px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap; /* Allow wrapping for more indicators */
+    gap: 5px; /* Space between wrapped indicators */
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #ff3b5c;
+    transform: scale(1.2);
+}
+
+/* Quote Container */
+.quote-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 30px auto;
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 2s ease-out 1s both;
+}
+
+.quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    padding: 0 20px;
+}
+
+.quote.active {
+    opacity: 1;
+}
+
+/* Decorative Line */
+.decorative-line {
+    width: 0;
+    height: 1px;
+    background-color: #fff;
+    margin: 30px auto;
+    position: relative;
+    animation: expandLine 2s ease-out 1.5s forwards;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes expandLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 80%;
+    }
+}
+
+/* Spotify Music Player (Smaller and Simplified) */
+.spotify-player {
+    position: fixed;
+    bottom: 30px;
+    left: -280px; /* Start off-screen */
+    width: 260px; /* Reduced from 320px */
+    background-color: #121212;
+    border-radius: 12px;
+    padding: 12px; /* Reduced from 15px */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: left 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 100;
+}
+
+.spotify-player.active {
+    left: 30px;
+}
+
+.player-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Reduced from 15px */
+}
+
+.song-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Reduced from 12px */
+}
+
+.album-art {
+    width: 42px; /* Reduced from 48px */
+    height: 42px; /* Reduced from 48px */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.album-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-details {
+    flex: 1;
+}
+
+.song-title {
+    font-weight: 600;
+    font-size: 14px; /* Reduced from 16px */
+    margin-bottom: 3px; /* Reduced from 4px */
+}
+
+.song-artist {
+    font-size: 12px; /* Reduced from 14px */
+    color: #b3b3b3;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time {
+    font-size: 11px; /* Reduced from 12px */
+    color: #b3b3b3;
+    min-width: 40px; /* Reduced from 45px */
+}
+
+.current-time {
+    text-align: right;
+}
+
+.total-time {
+    text-align: left;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background-color: #535353;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 0;
+    transition: width 0.1s linear;
+}
+
+.progress-bar:hover .progress {
+    background-color: #1db954;
+}
+
+.player-controls {
+    display: flex;
+    justify-content: center; /* Changed from space-between to center */
+    align-items: center;
+    margin-top: 5px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    color: #fff;
+}
+
+.play-pause-btn {
+    background-color: #fff;
+    color: #000;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.play-pause-btn:hover {
+    transform: scale(1.05);
+    color: #000;
+}
+
+/* Final Message */
+.final-message {
+    margin: 40px 0;
+    text-align: center;
+    animation: fadeIn 2s ease-out 2s both;
+}
+
+.final-message p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+.heart-icon {
+    color: #ff3b5c;
+    font-size: 28px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .carousel {
+        height: 350px; /* Default height, will be adjusted by JS */
+    }
+    
+    .spotify-player {
+        width: 240px; /* Reduced from 280px */
+    }
+    
+    .spotify-player.active {
+        left: 20px;
+    }
+    
+    .quote {
+        font-size: 1.2rem;
+    }
+}
+
+/* iPhone 12 Specific */
+@media only screen 
+and (device-width: 390px) 
+and (device-height: 844px) 
+and (-webkit-device-pixel-ratio: 3),
+only screen 
+and (max-width: 428px) {
+    .title {
+        font-size: 2rem;
+        margin: 30px 0;
+    }
+    
+    .carousel {
+        height: 280px; /* Default height, will be adjusted by JS */
+    }
+    
+    .quote {
+        font-size: 1.1rem;
+    }
+    
+    .spotify-player {
+        width: 220px; /* Reduced from calc(100% - 40px) */
+        left: -100%;
+    }
+    
+    .spotify-player.active {
+        left: 20px;
+        bottom: 20px;
+    }
+}
