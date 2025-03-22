@@ -21,6 +21,85 @@ document.addEventListener('DOMContentLoaded', function() {
     let isPlaying = false;
     let slideInterval;
     let fallingTimeout;
+    let isPlayerExpanded = false;
+
+    // Configuração para arrastar o player do Spotify
+    let isDragging = false;
+    let startX, startLeft;
+
+    // Função para iniciar o arrasto
+    function startDrag(e) {
+        // Previne arrasto durante cliques nos controles
+        if (e.target.closest('.control-btn') || e.target.closest('.progress-bar')) {
+            return;
+        }
+        
+        isDragging = true;
+        spotifyPlayer.classList.add('dragging');
+        
+        // Captura a posição inicial do mouse/toque e do player
+        startX = e.clientX || e.touches[0].clientX;
+        startLeft = parseInt(window.getComputedStyle(spotifyPlayer).left);
+        
+        // Adiciona eventos de movimento e finalização
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
+    }
+
+    // Função para arrastar
+    function drag(e) {
+        if (!isDragging) return;
+        
+        // Previne comportamento padrão para evitar rolagem da página
+        e.preventDefault();
+        
+        // Calcula a nova posição
+        const x = e.clientX || e.touches[0].clientX;
+        const deltaX = x - startX;
+        let newLeft = startLeft + deltaX;
+        
+        // Limita a posição para não sair da tela
+        const playerWidth = spotifyPlayer.offsetWidth;
+        const minLeft = -playerWidth + 30; // Deixa 30px visível
+        const maxLeft = 30; // Posição quando totalmente expandido
+        
+        newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+        
+        // Aplica a nova posição
+        spotifyPlayer.style.left = `${newLeft}px`;
+    }
+
+    // Função para finalizar o arrasto
+    function stopDrag() {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        spotifyPlayer.classList.remove('dragging');
+        
+        // Remove os eventos de movimento e finalização
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('touchmove', drag);
+        document.removeEventListener('mouseup', stopDrag);
+        document.removeEventListener('touchend', stopDrag);
+        
+        // Determina se o player deve expandir ou recolher
+        const currentLeft = parseInt(window.getComputedStyle(spotifyPlayer).left);
+        const playerWidth = spotifyPlayer.offsetWidth;
+        const threshold = -playerWidth / 2; // Ponto médio para decidir
+        
+        if (currentLeft > threshold) {
+            // Expandir
+            spotifyPlayer.style.left = '30px';
+            isPlayerExpanded = true;
+        } else {
+            // Recolher, mas deixar uma parte visível
+            const minLeft = -playerWidth + 30; // Deixa 30px visível
+            spotifyPlayer.style.left = `${minLeft}px`;
+            isPlayerExpanded = false;
+        }
+    }
 
     // Create space-floating hearts for initial screen
     function createSpaceHearts() {
@@ -267,6 +346,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show Spotify player after a delay
             setTimeout(() => {
                 spotifyPlayer.classList.add('active');
+                isPlayerExpanded = true;
+                
+                // Após 5 segundos, recolhe o player deixando uma parte visível
+                setTimeout(() => {
+                    if (isPlayerExpanded) {
+                        const playerWidth = spotifyPlayer.offsetWidth;
+                        const minLeft = -playerWidth + 30; // Deixa 30px visível
+                        spotifyPlayer.style.left = `${minLeft}px`;
+                        isPlayerExpanded = false;
+                    }
+                }, 5000);
             }, 2000);
         }, 1500);
     }
@@ -283,6 +373,10 @@ document.addEventListener('DOMContentLoaded', function() {
     startButton.addEventListener('click', startExperience);
     playPauseBtn.addEventListener('click', togglePlay);
     document.querySelector('.progress-bar').addEventListener('click', setProgress);
+
+    // Adiciona eventos para arrastar o player do Spotify
+    spotifyPlayer.addEventListener('mousedown', startDrag);
+    spotifyPlayer.addEventListener('touchstart', startDrag, { passive: true });
     
     // Audio events
     audio.addEventListener('timeupdate', updateProgress);
